@@ -1,0 +1,133 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(to right, #FA4032, #ffffff); 
+    text-align: center;
+    padding: 20px;
+    margin-top: 80px; 
+    min-height: 100vh; 
+}
+
+/* Header */
+header {
+    background-color: #FA4032;
+    padding: 15px 30px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: white;
+}
+
+.logo h1 {
+    font-size: 28px;
+    margin: 0;
+}
+
+.logo p {
+    margin: 0;
+    font-size: 14px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 25px;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+    padding: 10px;
+}
+
+nav ul li a:hover {
+    color: #FAB12F;
+}
+
+/* Registration Form Styles */
+.registration-container {
+    background: white;
+    padding: 25px;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 20px;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Labels */
+label {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
+}
+
+/* Input Fields */
+input, select {
+    padding: 10px;
+    width: 100%;
+    max-width: 350px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Button */
+button {
+    background-color: #3498db;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    max-width: 350px;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #2980b9;
+}
