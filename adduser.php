@@ -1,6 +1,9 @@
 <?php
 include 'connect.php';
 
+$error = '';
+$success = '';
+
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userID = $_POST['userID'];
@@ -9,30 +12,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $userType = $_POST['userType'];
 
-    // Insert into tbluser
-    $query = "INSERT INTO tbluser (userID, firstName, lastName, email) VALUES ('$userID', '$firstName', '$lastName', '$email')";
-    if (mysqli_query($connection, $query)) {
-        // Insert into the corresponding table based on user type
-        if ($userType == 'student') {
-            $studentID = $_POST['studentID'];
-            $program = $_POST['program'];
-            $yearLevel = $_POST['yearLevel'];
-            $studentQuery = "INSERT INTO tblstudent (userID, studentID, program, yearLevel) VALUES ('$userID', '$studentID', '$program', '$yearLevel')";
-            mysqli_query($connection, $studentQuery);
-        } elseif ($userType == 'staff') {
-            $staffID = $_POST['staffID'];
-            $office = $_POST['office'];
-            $staffQuery = "INSERT INTO tblstaff (userID, staffID, office) VALUES ('$userID', '$staffID', '$office')";
-            mysqli_query($connection, $staffQuery);
-        } elseif ($userType == 'faculty') {
-            $facultyID = $_POST['facultyID'];
-            $department = $_POST['department'];
-            $facultyQuery = "INSERT INTO tblfaculty (userID, facultyID, department) VALUES ('$userID', '$facultyID', '$department')";
-            mysqli_query($connection, $facultyQuery);
-        }
-        echo "User added successfully!";
+    // Check if userID already exists
+    $checkQuery = "SELECT userID FROM tbluser WHERE userID = '$userID'";
+    $checkResult = mysqli_query($connection, $checkQuery);
+    
+    if (mysqli_num_rows($checkResult) > 0) {
+        $error = "Error: User ID already exists. Please choose a different ID.";
     } else {
-        echo "Error: " . mysqli_error($connection);
+        // Insert into tbluser
+        $query = "INSERT INTO tbluser (userID, firstName, lastName, email) VALUES ('$userID', '$firstName', '$lastName', '$email')";
+        if (mysqli_query($connection, $query)) {
+            // Insert into the corresponding table based on user type
+            $typeSuccess = true;
+            if ($userType == 'student') {
+                $studentID = $_POST['studentID'];
+                $program = $_POST['program'];
+                $yearLevel = $_POST['yearLevel'];
+                $studentQuery = "INSERT INTO tblstudent (userID, studentID, program, yearLevel) VALUES ('$userID', '$studentID', '$program', '$yearLevel')";
+                if (!mysqli_query($connection, $studentQuery)) {
+                    $typeSuccess = false;
+                    $error = "Error adding student details: " . mysqli_error($connection);
+                }
+            } elseif ($userType == 'staff') {
+                $staffID = $_POST['staffID'];
+                $office = $_POST['office'];
+                $staffQuery = "INSERT INTO tblstaff (userID, staffID, office) VALUES ('$userID', '$staffID', '$office')";
+                if (!mysqli_query($connection, $staffQuery)) {
+                    $typeSuccess = false;
+                    $error = "Error adding staff details: " . mysqli_error($connection);
+                }
+            } elseif ($userType == 'faculty') {
+                $facultyID = $_POST['facultyID'];
+                $department = $_POST['department'];
+                $facultyQuery = "INSERT INTO tblfaculty (userID, facultyID, department) VALUES ('$userID', '$facultyID', '$department')";
+                if (!mysqli_query($connection, $facultyQuery)) {
+                    $typeSuccess = false;
+                    $error = "Error adding faculty details: " . mysqli_error($connection);
+                }
+            }
+            
+            if ($typeSuccess) {
+                $success = "User added successfully!";
+            }
+        } else {
+            $error = "Error: " . mysqli_error($connection);
+        }
     }
 }
 ?>
@@ -45,7 +69,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Add User</title>
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* Your CSS styles here */
         body {
             font-family: 'Inconsolata', monospace;
             margin: 0;
@@ -54,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
         .form-container {
             background-color: #fff;
@@ -62,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 400px;
+            margin: 20px 0;
         }
         input, select, button {
             width: 100%;
@@ -69,14 +93,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             margin: 10px 0;
             border-radius: 5px;
             border: 1px solid #ddd;
+            box-sizing: border-box;
         }
         button {
             background-color: #6C2C2F;
             color: white;
             font-weight: bold;
+            cursor: pointer;
         }
         button:hover {
             background-color: #A86D68;
+        }
+        .error {
+            color: #d9534f;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ebccd1;
+            border-radius: 4px;
+            background-color: #f2dede;
+        }
+        .success {
+            color: #3c763d;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #d6e9c6;
+            border-radius: 4px;
+            background-color: #dff0d8;
         }
     </style>
 </head>
@@ -84,6 +126,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class="form-container">
     <h2>Add New User</h2>
+    
+    <?php if ($error): ?>
+        <div class="error"><?php echo $error; ?></div>
+    <?php endif; ?>
+    
+    <?php if ($success): ?>
+        <div class="success"><?php echo $success; ?></div>
+    <?php endif; ?>
+    
     <form method="POST">
         <label for="userID">User ID</label>
         <input type="text" id="userID" name="userID" required>

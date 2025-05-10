@@ -1,4 +1,3 @@
-/* General Styles */
 * {
     margin: 0;
     padding: 0;
@@ -7,114 +6,88 @@
 }
 
 body {
-    background: linear-gradient(to right, #FA4032, #ffffff); 
-    text-align: center;
+    background: linear-gradient(to right, #74ebd5, #ACB6E5);
     padding: 20px;
-    margin-top: 80px; 
-    min-height: 100vh; 
 }
 
-/* Header */
 header {
-    background-color: #FA4032;
-    padding: 15px 30px;
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: fixed;
     top: 0;
-    left: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.logo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    color: white;
+    width: 100%;
+    z-index: 100;
 }
 
 .logo h1 {
+    color: #FA4032;
     font-size: 28px;
-    margin: 0;
 }
 
 .logo p {
-    margin: 0;
+    color: #555;
     font-size: 14px;
+    margin-top: 5px;
 }
 
 nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    list-style-type: none;
     display: flex;
-    gap: 25px;
-}
-
-nav ul li {
-    display: inline-block;
+    gap: 20px;
 }
 
 nav ul li a {
-    color: white;
     text-decoration: none;
-    font-size: 18px;
+    color: #333;
     font-weight: bold;
-    transition: 0.3s;
-    padding: 10px;
+    transition: color 0.3s;
 }
 
 nav ul li a:hover {
-    color: #FAB12F;
+    color: #FA4032;
 }
 
-/* Registration Form Styles */
 .registration-container {
-    background: white;
-    padding: 25px;
-    width: 400px;
+    background-color: white;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin-top: 20px;
+    padding: 30px;
+    margin: 120px auto 20px;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 h2 {
+    text-align: center;
     color: #333;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
-/* Form Styles */
 form {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    align-items: center;
 }
 
-/* Labels */
-label {
-    font-size: 14px;
-    font-weight: bold;
-    text-align: left;
-    width: 100%;
-}
-
-/* Input Fields */
-input, select {
+input[type="text"],
+input[type="password"],
+select {
     padding: 10px;
-    width: 100%;
-    max-width: 350px;
-    border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 14px;
+    border: 1px solid #ccc;
+    font-size: 16px;
 }
 
-/* Button */
-button {
+input:focus, select:focus {
+    border-color: #FA4032;
+    outline: none;
+    box-shadow: 0 0 5px rgba(250, 64, 50, 0.4);
+}
+
+input[type="submit"] {
     background-color: #3498db;
     color: white;
     padding: 12px;
@@ -128,6 +101,17 @@ button {
     transition: background 0.3s ease;
 }
 
-button:hover {
+input[type="submit"]:hover {
     background: #2980b9;
+}
+
+@media (max-width: 480px) {
+    .registration-container {
+        width: 90%;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
 }

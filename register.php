@@ -1,23 +1,19 @@
 <?php    
     include 'connect.php';    
-    //require_once 'includes/header.php'; 
 ?>
 
 <!DOCTYPE html>
-<html lang ="en">
-	<head>
-		<meta charset="UTF-8">
-   		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    	<title>ParkU - User Registration</title>
-    	<link rel="stylesheet" href="register.css">
-	</head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParkU - User Registration</title>
+    <link rel="stylesheet" href="register.css">
+</head>
 <body>
 
-
-
-<div class="regestration">
-	
-<header>
+<div class="registration-container">
+    <header>
         <div class="logo">
             <h1>ParkU</h1>
             <p>A Smart Parking Sticker System</p>
@@ -30,87 +26,117 @@
                 <li><a href="#contact">Contact Us</a></li>
             </ul>
         </nav>
-</header>
+    </header>
 
-       <h2>ParkU User Registration Page</h2>
-	<form method="post">
-			Firstname:<input type="text" name="txtfirstname">
-			Lastname:<input type="text" name="txtlastname">			
-			Gender:
-			<select name="txtgender">
-			 <option value="">----</option>
-			 <option value="Male">Male</option>
-			 <option value="Female">Female</option>
-			</select>
-			User Type:
-			<select name="txtusertype">
-			  <option value="">----</option>
-			  <option value="student">Student</option>
-			  <option value="employee">Employee</option>
-			</select>
-			Username:<input type="text" name="txtusername">	
-			Password:<input type="password" name="txtpassword">
-			
-			
-			Program:
-			<select name="txtprogram">
-			 <option value="">----</option>
-			 <option value="bsit">BSIT</option>
-			 <option value="bscs">BSCS</option>
-			</select>
-			
-			Year Level:
-				<select name="txtyearlevel">
-				<option value="">----</option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-			</select>
-			
-			<input type="submit" name="btnRegister" value="Register"> 
-	</form>
-	</div>
+    <h2>ParkU User Registration Page</h2>
+    <form method="post" onsubmit="return validateForm();">
+        <input type="text" name="txtfirstname" placeholder="Firstname" required pattern="[A-Za-z]+" title="Only letters allowed">
+        <input type="text" name="txtlastname" placeholder="Lastname" required pattern="[A-Za-z]+" title="Only letters allowed">
+
+        <select name="txtgender" required>
+            <option value="">Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <select name="txtusertype" required>
+            <option value="">User Type</option>
+            <option value="student">Student</option>
+            <option value="employee">Employee</option>
+        </select>
+
+        <input type="text" name="txtusername" placeholder="Username" required minlength="4">
+        <input type="password" name="txtpassword" placeholder="Password" required minlength="6">
+
+        <select name="txtprogram" required>
+            <option value="">Program</option>
+            <option value="bsit">BSIT</option>
+            <option value="bscs">BSCS</option>
+        </select>
+
+        <select name="txtyearlevel" required>
+            <option value="">Year Level</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+
+        <input type="submit" name="btnRegister" value="Register">
+    </form>
+</div>
+
+<script>
+function validateForm() {
+    const uname = document.forms[0]["txtusername"].value;
+    const pass = document.forms[0]["txtpassword"].value;
+
+    if (uname.length < 4) {
+        alert("Username must be at least 4 characters.");
+        return false;
+    }
+    if (pass.length < 6) {
+        alert("Password must be at least 6 characters.");
+        return false;
+    }
+    return true;
+}
+</script>
+
 </body>	
 </html>
 
+<?php
+if (isset($_POST['btnRegister'])) {
+    $fname = trim($_POST['txtfirstname']);
+    $lname = trim($_POST['txtlastname']);
+    $gender = $_POST['txtgender'];
+    $utype = $_POST['txtusertype'];
+    $uname = trim($_POST['txtusername']);
+    $pword = $_POST['txtpassword'];
+    $prog = $_POST['txtprogram'];
+    $yearlevel = $_POST['txtyearlevel'];
 
-<?php	
-	if(isset($_POST['btnRegister'])){		
-		//retrieve data from form and save the value to a variable
-		//for tbluser
-		$fname=$_POST['txtfirstname'];		
-		$lname=$_POST['txtlastname'];
-		$gender=$_POST['txtgender'];
-		$utype=$_POST['txtusertype'];
-		$uname=$_POST['txtusername'];		
-		$pword=$_POST['txtpassword'];	
-		$hashedpw = password_hash($pword, PASSWORD_DEFAULT);
-		
-		//for tblstudent
-		$prog=$_POST['txtprogram'];		
-		$yearlevel=$_POST['txtyearlevel'];		
-		
-						
-		//save data to tbluser	
-		$sql1 ="Insert into tbluser(firstname,lastname,gender, usertype, username, password) values('".$fname."','".$lname."','".$gender."','".$utype."', '".$uname."', '".$hashedpw."')";
-		mysqli_query($connection,$sql1);
-				
-		$last_id = mysqli_insert_id($connection);
-		 
-		$sql2 ="Insert into tblstudent(program, yearlevel, uid) values('".$prog."','.$yearlevel.','.$last_id.')";
-		mysqli_query($connection,$sql2);
-		echo "<script language='javascript'>
-			alert('New record saved.');
-		      </script>";
-		header("location: dashboard.php");
-		
-			
-		
-	}
-		
+    if (empty($fname) || empty($lname) || empty($gender) || empty($utype) || empty($uname) || empty($pword) || empty($prog) || empty($yearlevel)) {
+        echo "<script>alert('Please fill in all fields.');</script>";
+    } elseif (strlen($uname) < 4 || strlen($pword) < 6) {
+        echo "<script>alert('Username must be at least 4 characters and password at least 6 characters.');</script>";
+    } else {
+        // Check if username already exists
+        $checkQuery = "SELECT * FROM tbluser WHERE username = ?";
+        $checkStmt = mysqli_prepare($connection, $checkQuery);
+        mysqli_stmt_bind_param($checkStmt, "s", $uname);
+        mysqli_stmt_execute($checkStmt);
+        mysqli_stmt_store_result($checkStmt);
 
+        if (mysqli_stmt_num_rows($checkStmt) > 0) {
+            echo "<script>alert('Username already exists. Please choose another.');</script>";
+        } else {
+            $hashedpw = password_hash($pword, PASSWORD_DEFAULT);
+
+            $sql1 = "INSERT INTO tbluser (firstname, lastname, gender, usertype, username, password)
+                     VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt1 = mysqli_prepare($connection, $sql1);
+            mysqli_stmt_bind_param($stmt1, "ssssss", $fname, $lname, $gender, $utype, $uname, $hashedpw);
+
+            if (mysqli_stmt_execute($stmt1)) {
+                $last_id = mysqli_insert_id($connection);
+
+                $sql2 = "INSERT INTO tblstudent (program, yearlevel, uid) VALUES (?, ?, ?)";
+                $stmt2 = mysqli_prepare($connection, $sql2);
+                mysqli_stmt_bind_param($stmt2, "sii", $prog, $yearlevel, $last_id);
+
+                if (mysqli_stmt_execute($stmt2)) {
+                    echo "<script>alert('New record saved. Redirecting...');</script>";
+                    echo "<script>window.location.href='dashboard.php';</script>";
+                    exit;
+                } else {
+                    echo "<script>alert('Failed to save student data.');</script>";
+                }
+            } else {
+                echo "<script>alert('Failed to save user data.');</script>";
+            }
+        }
+    }
+}
 ?>
-
-
-<?php //require_once 'includes/footer.php'; ?>
