@@ -4,28 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ParkU - Dashboard</title>
-    <link rel="stylesheet" href="home.css">
+    <title>ParkU - Home</title>
+    <link rel="stylesheet" href="design.css">
 </head>
 
-<body>
+<body class="home-page-body">
 
-    <header>
-        <div class="logo">
-            <h1>ParkU</h1>
-            <p>Welcome to Your Dashboard</p>
-        </div>
-        <nav>
-           
-        </nav>
-    </header>
-
-    <section>
+    <div class="simple-page-container">
         <h2>Welcome, Admin!</h2>
         <p>You are now logged in. Manage your parking details here.</p>
-        <ul>
-            <li><a href="index.php">Continue</a></li> 
-        </ul>
+        <div class="button-container-home" style="margin-top: 20px;"> 
+            <button class="account" onclick="location.href='index.php'">Go to Main Site</button>
+            <button class="account" onclick="location.href='dashboard.php'">Go to Dashboard</button> 
+        </div>
+    </div>
 
 </body>
 

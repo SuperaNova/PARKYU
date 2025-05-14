@@ -15,12 +15,12 @@
                 tbluser.gender, 
                 tbluser.email, 
                 tbluser.isActive,
-                tblstudent.studentID, 
+                tblstudent.studentInfoID, 
                 tblstudent.program, 
                 tblstudent.yearLevel,
-                tblstaff.staffID, 
+                tblstaff.staffInfoID, 
                 tblstaff.office, 
-                tblfaculty.facultyID, 
+                tblfaculty.facultyInfoID, 
                 tblfaculty.department 
               FROM tbluser
               LEFT JOIN tblstudent ON tbluser.userID = tblstudent.userID

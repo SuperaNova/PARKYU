@@ -33,6 +33,8 @@
 /* General Styles */
 body {
   background-color: var(--background-general);
+  /* Subtle noise texture */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.03' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
   color: var(--text-color);
   font-family: 'Inconsolata', monospace;
   font-size: 18px;
@@ -52,7 +54,7 @@ a {
 header {
   background: gray;
   line-height: 1.2;
-  padding: 8vw 2em;
+  padding: 3vw 2em;
   text-align: center;
 }
 
@@ -79,16 +81,44 @@ header a:hover {
 }
 
 /* Themed Headers */
-.nes-header {
+.parku-details-header {
   background: linear-gradient(to right, #FAB12F, #FA812F, #FA4032);
 }
-
-.snes-header {
-  background: linear-gradient(45deg, #FA812F, #FAB12F, #FA4032);
+.parku-details-header h1 {
+  background: linear-gradient(to right, #FAB12F, #FA812F, #FA4032);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: #FEF3E2;
 }
 
-.n64-header {
+.features-header {
+  background: linear-gradient(135deg, #FA4032, #FAB12F, #FA812F);
+}
+.features-header h1 {
+  background: linear-gradient(135deg, #FA4032, #FAB12F, #FA812F);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: #FEF3E2;
+}
+
+.about-us-header {
+  background: linear-gradient(45deg, #FA812F, #FAB12F, #FA4032);
+}
+.about-us-header h1 {
+  background: linear-gradient(45deg, #FA812F, #FAB12F, #FA4032);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: #FEF3E2;
+}
+
+.contact-us-header {
   background: linear-gradient(to bottom, #FA812F, #FA4032, #FAB12F);
+}
+.contact-us-header h1 {
+  background: linear-gradient(to bottom, #FA812F, #FA4032, #FAB12F);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: #FEF3E2;
 }
 
 /* Layout */
@@ -98,18 +128,98 @@ header a:hover {
   padding: 4em 2em;
 }
 
-/* Navigation */
-nav ul {
+.container p {
+  text-align: justify;
+}
+
+/* Styled Table for Features/Contact */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse; /* Removes double borders */
+  margin-top: 20px; /* Adds some space above the table */
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 10px 15px; /* Adds padding to cells */
+  border: 1px solid var(--maroon-accent); /* Adds a subtle border */
+  vertical-align: top; /* Aligns text to the top */
+}
+
+.styled-table th {
+  background-color: var(--maroon-accent); /* Header background */
+  color: var(--background-general); /* Header text color */
+  text-align: left;
+}
+
+/* Align Feature column to the left, Description column justified */
+.styled-table td:first-child {
+  text-align: left;
+  font-weight: bold; /* Make feature names bold */
+}
+
+.styled-table td:last-child {
+  text-align: justify;
+}
+
+/* Connect With Us - Social Icons */
+.connect-us-section h3 {
+  margin-bottom: 15px;
+}
+
+.social-icons {
   list-style: none;
-  display: flex;
-  justify-content: center;
-  background: var(--maroon-accent);
   padding: 0;
   margin: 0;
+  text-align: center; /* Ensure the ul itself is centered if it has a width */
+}
+
+.social-icons li {
+  display: inline-block; /* Arrange icons horizontally */
+  margin: 0 10px; /* Add spacing between icons */
+}
+
+.social-icons li a {
+  font-size: 1.5em; /* Make icon characters a bit larger */
+  color: var(--maroon-accent); /* Use accent color for icons */
+  text-decoration: none;
+  padding: 5px 8px;
+  border: 1px solid var(--maroon-accent);
+  border-radius: 50%; /* Make them circular */
+  display: inline-block;
+  width: 1.8em; /* Fixed width for circle */
+  height: 1.8em; /* Fixed height for circle */
+  line-height: 1.8em; /* Vertically center character in circle */
+  text-align: center; /* Horizontally center character in circle */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.social-icons li a:hover {
+  background-color: var(--maroon-accent);
+  color: var(--background-general);
+}
+
+/* Navigation */
+nav[role="navigation"] {
+  display: flex;
+  justify-content: center; /* Centers the ul (main links) */
+  align-items: center;
+  background: var(--maroon-accent);
+  padding: 0 20px; /* Add some padding to the nav bar itself */
+  position: relative; /* For absolute positioning of the profile icon */
+}
+
+nav ul {
+  list-style: none;
+  display: flex; /* Makes li items flex items for easy spacing */
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  /* overflow: hidden; --- Removed */
 }
 
 nav ul li {
-  padding: 10px 20px;
+  padding: 10px 15px; /* Adjusted padding slightly */
 }
 
 nav ul li a {
@@ -118,6 +228,24 @@ nav ul li a {
 }
 
 nav ul li a:hover {
+  color: #bbb; /* Darker hover color */
+}
+
+.user-session-controls {
+  position: absolute;
+  right: 20px; /* Position to the far right */
+  top: 50%;
+  transform: translateY(-50%); /* Vertically center icon */
+}
+
+.user-session-controls .profile-icon {
+  font-size: 1.8em; /* Make icon a bit larger */
+  color: var(--background-general);
+  text-decoration: none;
+  padding: 5px;
+}
+
+.user-session-controls .profile-icon:hover {
   color: #ddd;
 }
 
@@ -153,4 +281,579 @@ footer {
 .account:active {
   box-shadow: 0 0 0 3px #2f2e41, 0 4px 0 #2f2e41;
   transform: translateY(2px);
+}
+
+/* Homepage Button Container */
+.button-container-home {
+  text-align: center;
+  margin-top: 25px; /* Add some space above the buttons */
+}
+
+/* Top bar for Auth Pages */
+.auth-top-bar {
+    background-color: var(--maroon-accent);
+    padding: 10px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex; /* For aligning items like logo */
+    align-items: center;
+    position: fixed; /* Make it stick to the top */
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+/* Logo link for Auth Pages (Login/Register) - adjusted */
+.auth-logo-link {
+    /* position: absolute; Removed */
+    /* top: 20px; Removed */
+    /* left: 20px; Removed */
+    /* z-index: 1000; Moved to parent if needed, but fixed pos handles it */
+    display: inline-block; /* Allow it to sit nicely in flex */
+}
+
+.auth-logo-link img {
+    width: 70px; /* Adjusted size for top bar */
+    height: auto;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+    vertical-align: middle; /* Better alignment within the bar */
+}
+
+.auth-logo-link img:hover {
+    opacity: 1;
+}
+
+/* Adjust body padding for login/register pages to account for fixed top bar */
+body.login-page-body,
+body.register-page-body {
+    /* background-color: #F5E8D5; Already set */
+    /* background-image: ...; Already set */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 70px; /* Add padding to push content below fixed top bar, adjust height as needed based on bar height */
+    box-sizing: border-box;
+}
+
+/* Login Page Styles */
+body.login-page-body {
+    background-color: #F5E8D5; /* Slightly darker beige for a "dimmed" effect */
+    /* Consistent subtle noise texture */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background-color: #fff7e6; /* Lighter beige for contrast */
+    border: 2px solid #fab12f; /* Orange border, similar to header gradients */
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 400px;
+    margin: 20px; /* For smaller screens, ensure some margin */
+}
+
+.login-container h2 {
+    color: var(--maroon-accent); /* Using theme color */
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 1.8em;
+}
+
+.login-container label {
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Inconsolata', monospace;
+    font-size: 1em;
+}
+
+.login-container button[type="submit"] {
+    background-color: #FA4032; /* Red from header gradients */
+    color: white;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+}
+
+.login-container button[type="submit"]:hover {
+    background-color: #e03020; /* Slightly darker red on hover */
+}
+
+.login-container .register-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+.login-container .register-link a {
+    color: var(--maroon-accent);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-container .register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Registration Page Styles */
+body.register-page-body {
+    background-color: #F5E8D5; /* Slightly darker beige for a "dimmed" effect */
+    /* Consistent subtle noise texture */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px 0; /* Add some padding for scroll on long forms */
+}
+
+.registration-container {
+    background-color: #fff7e6; /* Lighter beige for contrast */
+    border: 2px solid #fab12f; /* Orange border */
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    width: 100%;
+    max-width: 500px; /* Slightly wider for more fields */
+    margin: 20px auto; /* Centering and margin for smaller screens */
+}
+
+.registration-container h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+}
+
+.registration-container input[type="text"],
+.registration-container input[type="email"],
+.registration-container input[type="password"],
+.registration-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px; /* Consistent margin */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Inconsolata', monospace;
+    font-size: 1em;
+}
+
+.registration-container input[type="submit"] {
+    background-color: #FA4032; /* Red from header gradients */
+    color: white;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px; /* Space above button */
+}
+
+.registration-container input[type="submit"]:hover {
+    background-color: #e03020; /* Slightly darker red on hover */
+}
+
+.registration-container .login-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+.registration-container .login-link a {
+    color: var(--maroon-accent);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.registration-container .login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Dashboard Page Styles */
+body.dashboard-page-body {
+    background-color: var(--background-general);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.03' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+    color: var(--text-color);
+    font-family: 'Inconsolata', monospace;
+    font-size: 16px; /* Slightly smaller base for dashboard */
+    line-height: 1.5;
+    margin: 0;
+}
+
+.dashboard-header {
+    background-color: #6C2C2F; /* Maroon accent */
+    color: #FEF3E2; /* Light cream text for H1 if not overridden */
+    padding: 20px 0;
+    text-align: center;
+    margin-bottom: 0;
+    border-bottom: 2px solid #562426;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    font-family: 'Inconsolata', monospace, sans-serif;
+    font-size: 2em;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #FEF3E2; /* Explicitly set light cream text for H1 */
+}
+
+.dashboard-nav {
+    background: var(--maroon-accent); /* #6C2C2F */
+    padding: 5px 0;
+    border-top: 1px solid #5a2022;
+    border-bottom: 1px solid #5a2022;
+}
+
+.dashboard-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
+.dashboard-nav ul li {
+    padding: 8px 15px;
+}
+
+.dashboard-nav ul li a {
+    color: var(--white); /* Should be #FFFFFF */
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.dashboard-nav ul li a:hover {
+    color: #ddc0a0; /* A slightly darker cream for hover, or keep #FEF3E2 */
+}
+
+.dashboard-nav ul li.active-nav-item a {
+    color: #ffd700; /* Example: Gold color for active link */
+    /* Or use a border or background distinction */
+    /* border-bottom: 2px solid #FEF3E2; */
+}
+
+.dashboard-container {
+    max-width: 90%; /* Wider for dashboard content */
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff7e6; /* Light beige from original dashboard styles */
+    border-radius: 8px;
+    border: 1px solid var(--maroon-accent);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Content within containers left aligned by default */
+}
+
+.dashboard-container h2 {
+    color: var(--maroon-accent);
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+.dashboard-table th {
+    background: var(--maroon-accent);
+    color: var(--white);
+    padding: 10px;
+    border: 1px solid #5a2022; /* Darker border for header */
+    text-align: left;
+}
+
+.dashboard-table td {
+    padding: 8px 10px;
+    border: 1px solid #E6D5BE; /* Lighter border for cells */
+    vertical-align: middle;
+}
+
+.dashboard-table tr:nth-child(even) {
+    background: #F9E7D1; /* Alternating row color */
+}
+
+.dashboard-table tr:hover {
+    background: #E6D5BE; /* Hover for rows */
+}
+
+/* Style for pie chart container to control size */
+#pieChartContainer {
+    max-width: 400px; 
+    margin: 20px auto; /* Center the container */
+}
+
+#userTypePieChart {
+    width: 100% !important; 
+    height: auto !important;
+    max-height: 400px; /* Ensure it doesn't get too tall */
+}
+
+/* Collapsible sections from dashboard - These styles are now for the sidebar buttons if .collapsible class is reused, or can be adapted/removed if not. */
+/* The .collapsible class itself is no longer used for the main content toggles in dashboard.php */
+.collapsible {
+    background-color: var(--maroon-accent);
+    color: white;
+    cursor: pointer;
+    padding: 10px 15px;
+    width: 100%;
+    border: none;
+    text-align: center; /* Changed from left to center */
+    font-size: 1.1em;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-family: 'Inconsolata', monospace;
+}
+
+.collapsible:hover, .collapsible.active {
+    background-color: #5a2022; /* Darker maroon */
+}
+
+.content {
+    padding: 15px;
+    display: none; /* Hidden by default */
+    overflow: hidden;
+    background-color: #fffaf0; /* Very light cream for content area */
+    border: 1px dashed var(--maroon-accent);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+}
+
+.dashboard-container .btn, /* Adapting existing .btn style if possible */
+.dashboard-table .btn, /* Targeting buttons specifically in the dashboard table */
+.dashboard-container button:not(.collapsible):not(.sidebar-nav-button) { /* General buttons not collapsible and not sidebar nav*/
+    font-size: 0.9em; /* Slightly smaller for table actions */
+    font-weight: 600; /* Adjusted weight */
+    font-family: monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    cursor: pointer;
+    display: inline-block; /* Keep as inline-block */
+    padding: 8px 15px; /* Adjusted padding */
+    border-radius: 6px; /* Matched radius */
+    background: var(--maroon-accent);
+    color: var(--white);
+    box-shadow: 0 0 0 2px #2f2e41, 0 4px 0 #2f2e41; /* Simpler shadow, adjust as needed */
+    transition: transform 0.1s ease, background 0.3s ease, box-shadow 0.1s ease;
+    margin: 3px;
+}
+
+.dashboard-container .btn:hover,
+.dashboard-table .btn:hover,
+.dashboard-container button:not(.collapsible):not(.sidebar-nav-button):hover {
+    background: #5a2022; /* Darker maroon from original dashboard styles */
+}
+
+.dashboard-container .btn:active,
+.dashboard-table .btn:active,
+.dashboard-container button:not(.collapsible):not(.sidebar-nav-button):active {
+    box-shadow: 0 0 0 2px #2f2e41, 0 2px 0 #2f2e41; /* Adjusted active shadow */
+    transform: translateY(2px);
+}
+
+/* Dashboard Footer */
+.dashboard-footer {
+    background-color: var(--maroon-accent);
+    color: var(--white);
+    padding: 1em 0;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Styles for home.php */
+body.home-page-body {
+    background-color: var(--background-general);
+    color: var(--text-color);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
+}
+
+.home-content-container {
+    text-align: center;
+    padding: 50px 20px;
+    flex-grow: 1;
+}
+
+.home-content-container h1 {
+    color: var(--header-text-color);
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.home-content-container p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.home-buttons .btn {
+    background-color: var(--maroon-accent);
+    color: var(--white);
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1em;
+    margin: 0 10px;
+    transition: background-color 0.3s ease;
+}
+
+.home-buttons .btn:hover {
+    background-color: #a04040; /* Darker maroon */
+}
+
+/* Ensure main site footer is styled if not already comprehensively done */
+/* General Footer Styles - if this is redundant, it can be merged/removed */
+footer {
+    background-color: var(--maroon-accent); /* Or a different color if preferred */
+    color: var(--white);
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9em;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    color: var(--white);
+    text-decoration: underline;
+}
+
+footer a:hover {
+    color: #f0f0f0; /* Lighter color on hover */
+}
+
+/* Social Media Icons in Footer (if any) */
+.footer-social-links {
+    margin-top: 10px;
+}
+
+.footer-social-links a {
+    margin: 0 8px;
+    color: var(--white);
+    font-size: 1.2em; /* Adjust as needed */
+    text-decoration: none;
+}
+
+.footer-social-links a:hover {
+    color: #f0f0f0;
+}
+
+/* New Dashboard Layout Styles */
+.dashboard-layout-grid {
+    display: grid;
+    grid-template-columns: 250px 1fr; /* Sidebar width and main content takes the rest */
+    gap: 20px;
+    padding: 20px;
+    min-height: calc(100vh - 150px); /* Adjust 150px based on header/nav/footer height */
+}
+
+.dashboard-sidebar {
+    background-color: #fff7e6; /* Light beige, similar to content containers */
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--maroon-accent);
+    height: fit-content; /* Make sidebar only as tall as its content */
+}
+
+.dashboard-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dashboard-sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar-nav-button {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: var(--maroon-accent);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-nav-button:hover {
+    background-color: #5a2022; /* Darker maroon */
+}
+
+.sidebar-nav-button.active-nav-button {
+    background-color: #4a1012; /* Even darker for active state */
+    font-weight: bold;
+}
+
+.content-section {
+    display: none; /* Hidden by default */
+    background: #fff7e6; /* Light beige from original dashboard styles */
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--maroon-accent);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Add space between sections if multiple were to be shown (though only one is) */
+}
+
+.content-section.active-content {
+    display: block; /* Show active section */
+}
+
+/* Ensure h2 within new content sections are styled */
+.content-section h2 {
+    color: var(--maroon-accent);
+    text-align: center;
+    margin-top: 0; /* Remove top margin if h2 is first element */
+    margin-bottom: 20px;
+    font-size: 1.5em;
 }
