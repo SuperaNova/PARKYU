@@ -1,0 +1,64 @@
+/* Login Page */
+.login-container {
+    width: 350px;
+    background: #FEF3E2; /* Light background */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin: 100px auto;
+    border: 2px solid #FA812F; /* Slight border for aesthetics */
+    padding-right: 50px;
+}
+
+.login-container h2 {
+    color: #FA4032; /* Primary color */
+    font-family: 'Arial', sans-serif;
+}
+.login-container label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #FA812F; /* Text accent */
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 2px solid #FAB12F; /* Input border */
+    background: white;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.login-container input:focus {
+    border-color: #FA812F; /* Highlight on focus */
+    outline: none;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #FA4032; /* Primary button color */
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+}
+
+.login-container button:hover {
+    background-color: #FA812F; /* Button hover color */
+}
+
+#error-message {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #FA4032; /* Primary alert color */
+    font-weight: bold;
+}
